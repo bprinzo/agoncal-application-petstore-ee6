@@ -1,5 +1,8 @@
 package org.agoncal.application.petstore.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -30,21 +33,21 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Getter private Long id;
     @Column(nullable = false, length = 30)
     @NotNull
     @Size(min = 1, max = 30)
-    private String name;
+    @Getter @Setter private String name;
     @Column(nullable = false)
-    private String description;
+    @Getter @Setter private String description;
     @ManyToOne
     @JoinColumn(name = "category_fk", nullable = false)
     @XmlTransient
-    private Category category;
+    @Getter @Setter private Category category;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @OrderBy("name ASC")
     @XmlTransient
-    private List<Item> items;
+    @Getter @Setter private List<Item> items;
 
     // ======================================
     // =             Constants              =
@@ -67,54 +70,14 @@ public class Product {
     }
 
     // ======================================
-    // =         Getters & setters          =
+    // =   Methods hash, equals, toString   =
     // ======================================
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     public void addItem(Item item) {
         if (items == null)
             items = new ArrayList<Item>();
         items.add(item);
     }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    // ======================================
-    // =   Methods hash, equals, toString   =
-    // ======================================
 
     @Override
     public boolean equals(Object o) {

@@ -1,5 +1,8 @@
 package org.agoncal.application.petstore.web;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.agoncal.application.petstore.domain.*;
 import org.agoncal.application.petstore.service.CatalogService;
 import org.agoncal.application.petstore.service.OrderService;
@@ -38,11 +41,11 @@ public class ShoppingCartController extends Controller implements Serializable {
     @Inject
     private OrderService orderBean;
     @Inject
-    private Conversation conversation;
+    @Getter private Conversation conversation;
 
-    private List<CartItem> cartItems;
-    private CreditCard creditCard = new CreditCard();
-    private Order order;
+    @Getter private List<CartItem> cartItems;
+    @Getter @Setter  private CreditCard creditCard = new CreditCard();
+    @Getter @Setter  private Order order;
 
     // ======================================
     // =              Public Methods        =
@@ -105,10 +108,6 @@ public class ShoppingCartController extends Controller implements Serializable {
         return "orderconfirmed.faces";
     }
 
-    public List<CartItem> getCartItems() {
-        return cartItems;
-    }
-
     public boolean shoppingCartIsEmpty() {
         return getCartItems() == null || getCartItems().size() == 0;
     }
@@ -136,26 +135,6 @@ public class ShoppingCartController extends Controller implements Serializable {
         return loggedInCustomer.get();
     }
 
-
-    public CreditCard getCreditCard() {
-        return creditCard;
-    }
-
-    public void setCreditCard(CreditCard creditCard) {
-        this.creditCard = creditCard;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Conversation getConversation() {
-        return conversation;
-    }
 
     public CreditCardType[] getCreditCardTypes() {
         return CreditCardType.values();
