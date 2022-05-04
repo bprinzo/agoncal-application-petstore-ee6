@@ -2,6 +2,7 @@ package org.agoncal.application.petstore.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.agoncal.application.petstore.constraint.NotEmpty;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ import java.util.List;
         @NamedQuery(name = Category.FIND_ALL, query = "SELECT c FROM Category c")
 })
 @XmlRootElement
+@ToString
 public class Category {
 
     // ======================================
@@ -45,7 +47,7 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @OrderBy("name ASC")
     @XmlTransient
-    @Getter @Setter private List<Product> products;
+    @ToString.Exclude @Getter @Setter private List<Product> products;
 
     // ======================================
     // =             Constants              =
@@ -100,16 +102,5 @@ public class Category {
     @Override
     public int hashCode() {
         return name.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("Category");
-        sb.append("{id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", description='").append(description).append('\'');
-        sb.append('}');
-        return sb.toString();
     }
 }

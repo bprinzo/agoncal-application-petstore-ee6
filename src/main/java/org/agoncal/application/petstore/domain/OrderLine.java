@@ -2,6 +2,7 @@ package org.agoncal.application.petstore.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
  */
 
 @Entity
+@ToString
 public class OrderLine {
 
     // ======================================
@@ -71,16 +73,5 @@ public class OrderLine {
         result = 31 * result + quantity.hashCode();
         result = 31 * result + (item != null ? item.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("OrderLine");
-        sb.append("{id=").append(id);
-        sb.append(", quantity=").append(quantity);
-        sb.append(", item=").append(item);
-        sb.append('}');
-        return sb.toString();
     }
 }

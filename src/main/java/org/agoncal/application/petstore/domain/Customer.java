@@ -2,6 +2,7 @@ package org.agoncal.application.petstore.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.agoncal.application.petstore.constraint.Email;
 import org.agoncal.application.petstore.constraint.Login;
 import org.agoncal.application.petstore.exception.ValidationException;
@@ -29,6 +30,7 @@ import java.util.GregorianCalendar;
         @NamedQuery(name = Customer.FIND_ALL, query = "SELECT c FROM Customer c")
 })
 @XmlRootElement
+@ToString
 public class Customer implements Serializable {
 
     // ======================================
@@ -156,23 +158,5 @@ public class Customer implements Serializable {
     @Override
     public int hashCode() {
         return login.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("Customer");
-        sb.append("{id=").append(id);
-        sb.append(", login='").append(login).append('\'');
-        sb.append(", password='").append(password).append('\'');
-        sb.append(", firstname='").append(firstname).append('\'');
-        sb.append(", lastname='").append(lastname).append('\'');
-        sb.append(", telephone='").append(telephone).append('\'');
-        sb.append(", email='").append(email).append('\'');
-        sb.append(", homeAddress=").append(homeAddress);
-        sb.append(", dateOfBirth=").append(dateOfBirth);
-        sb.append(", age=").append(age);
-        sb.append('}');
-        return sb.toString();
     }
 }
